@@ -18,9 +18,9 @@ public class UserProfiles extends BaseActivity {
 
 
     //private final List<Item> items = new ArrayList<>();
- DbHelper dbHelper;
- CursorAdapter cursorAdapter;
- Context mContext;
+    DbHelper dbHelper;
+    CursorAdapter cursorAdapter;
+    Context mContext;
 
 
     @Override
@@ -33,12 +33,9 @@ public class UserProfiles extends BaseActivity {
         dbHelper = new DbHelperSqlLite(mContext);
 
 
-   Cursor allUsers =  dbHelper.getAllUsers();
-     /*   allUsers.moveToFirst();
-      String  user =  allUsers.getString(allUsers
-                .getColumnIndex("name"));*/
+        Cursor allUsers = dbHelper.getAllUsers();
 
-        cursorAdapter = new CursorAdapter(mContext,allUsers);
+        cursorAdapter = new CursorAdapter(mContext, allUsers);
 
         RecyclerView recycler = findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
@@ -57,12 +54,9 @@ public class UserProfiles extends BaseActivity {
     }
 
 
-    public void editUserByAdmin (View view)
-    {
+    public void editUserByAdmin(View view) {
         EditUserByAdminActivity.startThisActivity(mContext);
     }
-
-
 
 
 }

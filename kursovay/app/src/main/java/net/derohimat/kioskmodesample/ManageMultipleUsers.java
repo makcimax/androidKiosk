@@ -28,17 +28,12 @@ public class ManageMultipleUsers {
 
         ComponentName adminName = dpm.getActiveAdmins().iterator().next();
 
-// If possible, reuse an existing affiliation ID across the
-// primary user and (later) the ephemeral user.
         Set<String> identifiers = dpm.getAffiliationIds(adminName);
 
-// Pass an affiliation ID to the ephemeral user in the admin extras.
+
         PersistableBundle adminExtras = new PersistableBundle();
 
         adminExtras.putString(idUser, identifiers.iterator().next());
-// Include any other config for the new user here ...
-
-// Create the ephemeral user, using this component as the admin.
         try {
 
 
@@ -84,10 +79,8 @@ public class ManageMultipleUsers {
     public boolean isUserAdmin(String nameOfUser,int uid, String hashOfPassword)
     {
         //TODO
-        //Change this
+             //Change this
         // How to store password
-
-
 if(nameOfUser.equals("admin") &&(nameOfUser.equals("123")))
 
 

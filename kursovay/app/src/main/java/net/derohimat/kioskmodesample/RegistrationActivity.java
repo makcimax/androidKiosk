@@ -18,7 +18,8 @@ public class RegistrationActivity extends BaseActivity {
     private TextView userIsRegistrated;
     private IgetHashOfPassword hashFunc;
     private DbHelper db;
-    private  ManageMultipleUsers mngMultiUsers;
+    private ManageMultipleUsers mngMultiUsers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +28,10 @@ public class RegistrationActivity extends BaseActivity {
         password = (EditText) findViewById(R.id.edit_password);
         userIsRegistrated = (EditText) findViewById(R.id.userIsRegistrated);
 
-         db = new DbHelperSqlLite(this);
-hashFunc = new getSHA256Hash();
+        db = new DbHelperSqlLite(this);
+        hashFunc = new getSHA256Hash();
 
-mngMultiUsers = new ManageMultipleUsers();
+        mngMultiUsers = new ManageMultipleUsers();
 
 
     }
@@ -42,25 +43,22 @@ mngMultiUsers = new ManageMultipleUsers();
     }
 
 
-    public void RegistrateUser(View view){
-      db = new DbHelperSqlLite(this);
+    public void RegistrateUser(View view) {
+        db = new DbHelperSqlLite(this);
 
-String userNameStr = username.getText().toString();
-String passwordStr = password.getText().toString();
-boolean isUserInDb = db.isUserExist(userNameStr);
+        String userNameStr = username.getText().toString();
+        String passwordStr = password.getText().toString();
+        boolean isUserInDb = db.isUserExist(userNameStr);
 
-        if(!isUserInDb)
-        {
+        if (!isUserInDb) {
 
-            Toast.makeText(getApplicationContext(), "Регистрация прошла успешно!",Toast.LENGTH_SHORT).show();
-          String uid =  mngMultiUsers.createUsers(mContext, userNameStr);
+            Toast.makeText(getApplicationContext(), "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
+            String uid = mngMultiUsers.createUsers(mContext, userNameStr);
 
 
-            db.addUser(uid,userNameStr,hashFunc.getHashOfPassword(passwordStr));
+            db.addUser(uid, userNameStr, hashFunc.getHashOfPassword(passwordStr));
             EnterActivity.startThisActivity(this);
-        }
-        else
-        {
+        } else {
             userIsRegistrated.setVisibility(View.VISIBLE);
             userIsRegistrated.setText("Такой пользователь уже существует");
         }

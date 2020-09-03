@@ -5,6 +5,6 @@ import java.security.NoSuchAlgorithmException;
 
 public interface IgetHashOfPassword {
 
-  public String getHashOfPassword(String password);
+    public String getHashOfPassword(String password);
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.usage.NetworkStats;
 import android.app.usage.NetworkStatsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -19,12 +20,11 @@ public class NetsStatUtils extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         mPackageManager = getPackageManager();
-        mNetstatsManager = (NetworkStatsManager)getSystemService(
+        mNetstatsManager = (NetworkStatsManager) getSystemService(
                 Context.NETWORK_STATS_SERVICE);
     }
 
-    private void getDeviceStat()
-    {
+    private void getDeviceStat() {
         NetworkStats result = null;
         NetworkStats.Bucket bucket = null;
 /*        bucket = mNetstatsManager.querySummaryForDevice(
@@ -32,8 +32,7 @@ public class NetsStatUtils extends BaseActivity {
                );*/
     }
 
-    private void getAppStat()
-    {
+    private void getAppStat() {
 
         NetworkStats result = null;
         NetworkStats.Bucket bucket = null;
@@ -42,6 +41,12 @@ public class NetsStatUtils extends BaseActivity {
                 ConnectivityManager.TYPE_WIFI, "", ,
                 );*/
 
+    }
+
+
+    public static void startThisActivity(Context context) {
+        Intent intent = new Intent(context, NetsStatUtils.class);
+        context.startActivity(intent);
     }
 
 }

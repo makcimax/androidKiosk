@@ -12,9 +12,9 @@ import java.io.OutputStream;
 
 public class PackageInstallationUtils {
     public static final String ACTION_INSTALL_COMPLETE
-            = "com.afwsamples.testdpc.INSTALL_COMPLETE";
+            = "net.derohimat.kioskmodesample.INSTALL_COMPLETE";
     private static final String ACTION_UNINSTALL_COMPLETE
-            = "com.afwsamples.testdpc.UNINSTALL_COMPLETE";
+            = "net.derohimat.kioskmodesample.UNINSTALL_COMPLETE";
 
     public static boolean installPackage(Context context, InputStream in, String packageName)
             throws IOException {
@@ -55,5 +55,10 @@ public class PackageInstallationUtils {
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 intent, 0);
         return pendingIntent.getIntentSender();
+    }
+
+    public static void startThisActivity(Context context) {
+        Intent intent = new Intent(context, PackageInstallationUtils.class);
+        context.startActivity(intent);
     }
 }

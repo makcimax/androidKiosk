@@ -1,6 +1,7 @@
 package net.derohimat.kioskmodesample;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -25,10 +26,9 @@ public class WifiConfigUtil {
     }
 
 
-
     private static int addWifiNetwork(
             WifiManager wifiManager, WifiConfiguration wifiConfiguration) {
-           int networkId = wifiManager.addNetwork(wifiConfiguration);
+        int networkId = wifiManager.addNetwork(wifiConfiguration);
         if (networkId == INVALID_NETWORK_ID) {
             return INVALID_NETWORK_ID;
         }
@@ -58,7 +58,7 @@ public class WifiConfigUtil {
             return INVALID_NETWORK_ID;
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-             if (!saveUpdatedWifiConfiguration(wifiManager)) {
+            if (!saveUpdatedWifiConfiguration(wifiManager)) {
                 return INVALID_NETWORK_ID;
             }
         }
@@ -67,5 +67,11 @@ public class WifiConfigUtil {
 
     private static boolean saveUpdatedWifiConfiguration(WifiManager wifiManager) {
         return wifiManager.saveConfiguration();
+    }
+
+
+    public static void startThisActivity(Context context) {
+        Intent intent = new Intent(context, WifiConfigUtil.class);
+        context.startActivity(intent);
     }
 }

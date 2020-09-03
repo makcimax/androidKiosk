@@ -19,7 +19,7 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
         Button btnBack = (Button) findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
 
-       // setUpAdmin();
+        // setUpAdmin();
     }
 
     @Override

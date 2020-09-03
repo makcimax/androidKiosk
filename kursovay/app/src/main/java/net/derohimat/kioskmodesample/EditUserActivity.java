@@ -8,6 +8,7 @@ import android.view.View;
 public class EditUserActivity extends BaseActivity {
 
     Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +22,8 @@ public class EditUserActivity extends BaseActivity {
     }
 
 
-
-    public void  changeUser (View view){
-
-
+    public void changeUser(View view) {
 
 
     }
-    }
+}

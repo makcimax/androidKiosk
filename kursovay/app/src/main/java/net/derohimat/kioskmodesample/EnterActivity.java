@@ -46,48 +46,42 @@ public class EnterActivity extends BaseActivity {
         mngMultiUsers = new ManageMultipleUsers();
 
         //dbHelper.deleteAllUsers();
-       // setUpAdmin();
+        // setUpAdmin();
         registerReceiver(new LocksreenReceiver(), new IntentFilter("android.intent.action.USER_PRESENT"));
     }
 
-    public void Registration(View view){
+    public void Registration(View view) {
         RegistrationActivity.startThisActivity(mContext);
     }
 
 
-
-
-    public void Login(View view){
+    public void Login(View view) {
         // Если введенные логин и пароль будут словом "admin",
         // показываем Toast сообщение об успешном входе:
 
 
-     String usernameStr =   username.getText().toString();
-     String passwordStr =   username.getText().toString();
+        String usernameStr = username.getText().toString();
+        String passwordStr = username.getText().toString();
 
-        Boolean isRightData =       dbHelper.isPasswordTrue(username.getText().toString(), hashFunc.getHashOfPassword(password.getText().toString()));
+        Boolean isRightData = dbHelper.isPasswordTrue(username.getText().toString(), hashFunc.getHashOfPassword(password.getText().toString()));
 
         if (isRightData) {
-            Toast.makeText(getApplicationContext(), "Вход выполнен!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Вход выполнен!", Toast.LENGTH_SHORT).show();
 
             changeUser(usernameStr);
-            // Выполняем переход на другой экран:
             UserProfiles.startThisActivity(mContext);
         }
 
-        // В другом случае выдаем сообщение с ошибкой:
         else {
-            Toast.makeText(getApplicationContext(), "Неправильные данные!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Неправильные данные!", Toast.LENGTH_SHORT).show();
             numberOfRemainingLoginAttempts--;
 
-            // Делаем видимыми текстовые поля, указывающие на количество оставшихся попыток:
+
             attempts.setVisibility(View.VISIBLE);
             numberOfAttempts.setVisibility(View.VISIBLE);
             numberOfAttempts.setText(Integer.toString(numberOfRemainingLoginAttempts));
 
-            // Когда выполнено 3 безуспешных попытки залогиниться,
-            // делаем видимым текстовое поле с надписью, что все пропало и выставляем
-            // кнопке настройку невозможности нажатия setEnabled(false):
+
             if (numberOfRemainingLoginAttempts == 0) {
                 login.setEnabled(false);
                 loginLocked.setVisibility(View.VISIBLE);
@@ -102,20 +96,17 @@ public class EnterActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    private void changeUser(String nameOfUser)
-    {
-        if(nameOfUser.equals("admin"))
+    private void changeUser(String nameOfUser) {
+        if (nameOfUser.equals("admin"))
             mngMultiUsers.changeUserToAdminInBackground(mContext);
 
         else {
             int uid = dbHelper.getUidByExistName(nameOfUser);
-           // mngMultiUsers.changeUserInBackground(mContext, uid);
-       //     mngMultiUsers.changeUser(mContext, uid);
+            // mngMultiUsers.changeUserInBackground(mContext, uid);
+            //     mngMultiUsers.changeUser(mContext, uid);
         }
 
     }
-
-
 
 
 }

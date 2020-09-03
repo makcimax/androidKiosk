@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="SettingActivity">
+
+
+    <Button
+        android:id="@+id/vpn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="set always VPN"
+        android:onClick="goToSettingsVpn"/>
+
+    <Button
+        android:id="@+id/proxy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set proxy"
+        android:onClick="goToSettingsProxy"/>
+
+    <Button
+        android:id="@+id/dnsMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set private DNS mode"
+        android:onClick="goToSettingsDns"/>
+
+    <Button
+        android:id="@+id/netLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Network logs"
+        android:onClick="goToSettingsNetLog"/>
+
+    <Button
+        android:id="@+id/sysLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="System logs"
+        android:onClick="goToSettingSystemLog"/>
+
+    <Button
+        android:id="@+id/netStat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nework stats"
+        android:onClick="goToSettingsNetStat"/>
+
+    <Button
+        android:id="@+id/installApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Install app"
+        android:onClick="goToSettingsPackageInstall"/>
+
+    <Button
+        android:id="@+id/setRestriction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set restritions"
+        android:onClick="goToSettingsPackageRestriction"/>
+
+</LinearLayout>

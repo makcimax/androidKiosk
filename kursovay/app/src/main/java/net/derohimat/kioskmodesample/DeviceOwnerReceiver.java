@@ -38,7 +38,7 @@ public class DeviceOwnerReceiver extends DeviceAdminReceiver {
 
         NetloggingUtils netloggingUtils = new NetloggingUtils();
 
-        List<NetworkEvent> res =  netloggingUtils.getNetworkLogging(batchToken);
+        List<NetworkEvent> res = netloggingUtils.getNetworkLogging(batchToken);
 
     }
 

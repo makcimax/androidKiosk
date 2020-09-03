@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 public class InstructionFragment extends Fragment {
 
-    /**
-     * @return A newly instantiated {@link InstructionFragment}.
-     */
     public static InstructionFragment newInstance() {
         return new InstructionFragment();
     }

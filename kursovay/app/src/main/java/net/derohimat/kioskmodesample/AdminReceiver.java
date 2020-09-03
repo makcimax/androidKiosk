@@ -17,10 +17,6 @@ public class AdminReceiver extends DeviceAdminReceiver {
     public void onEnabled(Context context, Intent intent) {
         Toast.makeText(context, context.getString(R.string.device_admin_enabled), Toast.LENGTH_SHORT).show();
 
-//        BroadcastReceiver br = new LocksreenReceiver();
-//
-//        IntentFilter filter = new IntentFilter("android.intent.action.USER_PRESENT");
-//        context.registerReceiver(br, filter);
     }
 
     @Override
@@ -35,7 +31,7 @@ public class AdminReceiver extends DeviceAdminReceiver {
 
     @Override
     public void onLockTaskModeEntering(Context context, Intent intent, String pkg) {
-      Toast.makeText(context, context.getString(R.string.kiosk_mode_enabled), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.kiosk_mode_enabled), Toast.LENGTH_SHORT).show();
     }
 
     @Override

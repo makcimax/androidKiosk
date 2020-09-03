@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class EditUserByAdminActivity extends BaseActivity {
-Context mContext;
+    Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
