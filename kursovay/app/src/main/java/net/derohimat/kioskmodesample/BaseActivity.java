@@ -16,6 +16,18 @@ public class BaseActivity extends AppCompatActivity {
     protected View mDecorView;
     protected DevicePolicyManager mDpm;
 
+    protected DevicePolicyManager getDpm()
+    { ComponentName deviceAdmin = new ComponentName(this, AdminReceiver.class);
+        mDpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+    return  mDpm;
+    }
+
+
+    protected ComponentName getAdminName()
+    {
+        ComponentName deviceAdmin = new ComponentName(this, AdminReceiver.class);
+        return  deviceAdmin;
+    }
     protected void setUpAdmin() {
         if (!KioskModeApp.isInLockMode()) {
             ComponentName deviceAdmin = new ComponentName(this, AdminReceiver.class);

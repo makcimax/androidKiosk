@@ -2,9 +2,13 @@ package net.derohimat.kioskmodesample;
 
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
+import android.app.admin.NetworkEvent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+
+import java.util.List;
 
 public class DeviceOwnerReceiver extends DeviceAdminReceiver {
 
@@ -25,6 +29,21 @@ public class DeviceOwnerReceiver extends DeviceAdminReceiver {
         return new ComponentName(context.getApplicationContext(), DeviceOwnerReceiver.class);
     }
 
+    @Override
+    public void onNetworkLogsAvailable(Context context, Intent intent, long batchToken,
+                                       int networkLogsCount) {
+        super.onSecurityLogsAvailable(context, intent);
+        Intent intentActivity = new Intent(context, NetloggingUtils.class);
+        context.startActivity(intentActivity);
 
+        NetloggingUtils netloggingUtils = new NetloggingUtils();
 
+        List<NetworkEvent> res =  netloggingUtils.getNetworkLogging(batchToken);
+
+    }
+
+    @Override
+    public void onSecurityLogsAvailable(@NonNull Context context, @NonNull Intent intent) {
+        super.onSecurityLogsAvailable(context, intent);
+    }
 }
