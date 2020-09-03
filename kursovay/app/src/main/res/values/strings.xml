@@ -15,4 +15,8 @@
     </string>
 
     <string name="profile_name">My program</string>
+    <string name="failed_to_retrieve_pre_reboot_security_logs">Fail to get Secyrity logs</string>
+    <string name="security_logs_retrieved_message">System logs retrieve</string>
+    <string name="security_logs_retrieved_messages">---- Logs retrieved  %s ----</string>
+    <string name="exception_retrieving_security_logs">Not allowed to retrieve security logs, SecurityException thrown</string>
 </resources>

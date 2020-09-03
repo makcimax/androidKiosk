@@ -1,19 +1,43 @@
 package net.derohimat.kioskmodesample;
 
+import android.app.admin.DevicePolicyManager;
 import android.app.admin.SecurityLog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class SystemLoggingUtils extends BaseActivity {
+public class SystemLoggingUtils extends BaseListFragment {
+
+    private static final String TAG = "SystemLogs";
+    private static final String PRE_REBOOT_KEY = "pre-reboot";
+
+    private final ArrayList<String> mLogs = new ArrayList<>();
+    private ArrayAdapter<String> mAdapter;
+
+
+    private DevicePolicyManager mDevicePolicyManager;
+    private ComponentName mAdminName;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        mAdminName = getAdminName();
+        mDevicePolicyManager = getDpm();
+        mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
+                android.R.id.text1, mLogs);
+        setListAdapter(mAdapter);
     }
 
     private List<SecurityLog.SecurityEvent> getLogs() {
@@ -21,10 +45,51 @@ public class SystemLoggingUtils extends BaseActivity {
 return res;
     }
 
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAdapter.add(getString(R.string.security_logs_retrieved_messages, new Date().toString()));
+        try {
+            processEvents(getLogs());
+        } catch (SecurityException e) {
+            Log.e(TAG, "Exception thrown when trying to retrieve security logs", e);
+            mAdapter.add(getString(R.string.exception_retrieving_security_logs));
+        }
+    }
+
+
     public static void startThisActivity(Context context) {
         Intent intent = new Intent(context, SystemLoggingUtils.class);
         context.startActivity(intent);
     }
+
+    private void processEvents(List<SecurityLog.SecurityEvent> logs) {
+        if (logs == null) {
+            Log.w(TAG, "logs == null, are you polling too early?");
+            final String message = getString( R.string.failed_to_retrieve_pre_reboot_security_logs );
+            mAdapter.add(message);
+        } else {
+            SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
+            Log.d(TAG, "Incoming logs size: " + logs.size());
+            for (SecurityLog.SecurityEvent event : logs) {
+                StringBuilder sb = new StringBuilder();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    sb.append(getEventId(event) + ": ");
+                }
+                sb.append(getStringEventTagFromId(event.getTag()));
+                sb.append(" (").append(formatter.format(new Date(TimeUnit.NANOSECONDS.toMillis(
+                        event.getTimeNanos())))).append("): ");
+                printData(sb, event.getData());
+                mAdapter.add(sb.toString());
+            }
+            ListView listView = this.getListView();
+            listView.setSelection(listView.getCount() - 1);
+        }
+    }
+
+
 
     private long getEventId(SecurityLog.SecurityEvent event) {
         return event.getId();
@@ -137,5 +202,18 @@ return res;
         }
         return eventTag;
     }
+
+    private void printData(StringBuilder sb, Object data) {
+        if (data instanceof Integer || data instanceof Long || data instanceof Float
+                || data instanceof String) {
+            sb.append(data.toString()).append(" ");
+        } else if (data instanceof Object[]) {
+            for (Object item : (Object[]) data) {
+                printData(sb, item);
+            }
+        }
+    }
+
+
 
 }

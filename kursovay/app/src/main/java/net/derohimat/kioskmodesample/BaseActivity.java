@@ -35,7 +35,6 @@ public class BaseActivity extends AppCompatActivity {
             if (!mDpm.isAdminActive(deviceAdmin)) {
                 Log.e("Kiosk Mode Error", getString(R.string.not_device_admin));
             }
-
             if (mDpm.isDeviceOwnerApp(getPackageName())) {
                 mDpm.setLockTaskPackages(deviceAdmin, new String[]{getPackageName()});
             } else {
@@ -43,10 +42,7 @@ public class BaseActivity extends AppCompatActivity {
             }
 
             enableKioskMode(true);
-            //TODO : for clear device Owner
-//        } else {
-//            mDpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-//            mDpm.clearDeviceOwnerApp(getPackageName());
+
         }
 
         mDecorView = getWindow().getDecorView();
